@@ -1,6 +1,13 @@
 import math
 import random
 
+class StatusError(Exception):
+    def __init__(self, status):
+        self.status = status
+        
+    def __str__(self):
+        return f'Status {self.status} is incorrect.'
+
 class Person:
     maxDistance = 1.
     maxIllDistance = 0.1
@@ -9,6 +16,8 @@ class Person:
         self.x = x
         self.y = y
         self.status = status
+        if not self.status in ['zdrowy','chory','nosiciel','odporny']:
+            raise StatusError(status)
             
     def move(self):
         if self.status == "chory":
